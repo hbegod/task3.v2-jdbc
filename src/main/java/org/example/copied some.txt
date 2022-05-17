@@ -1,0 +1,7 @@
+Test connection (пока неясно где это можно  использовать, но пущай пока повисит):
+
+DBMS: MySQL (ver. 8.0.29)
+Case sensitivity: plain=lower, delimited=lower
+Driver: MySQL Connector/J (ver. mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0), JDBC4.2)
+Ping: 52 ms
+SSL: yes
