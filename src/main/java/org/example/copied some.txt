@@ -5,3 +5,13 @@ Case sensitivity: plain=lower, delimited=lower
 Driver: MySQL Connector/J (ver. mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0), JDBC4.2)
 Ping: 52 ms
 SSL: yes
+
+
+create DB:
+
+CREATE TABLE `test`.`test-table` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `row1` VARCHAR(45) NOT NULL,
+  `row2` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
