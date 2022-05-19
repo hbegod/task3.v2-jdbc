@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.controller.DBinteractions;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
@@ -7,7 +9,6 @@ import java.sql.*;
 public class CreateDB {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/";
-    static final String DB_TABLE_URL = "jdbc:mysql://localhost:3306/garden.maingarden";
     static final String USER = "root";
     static final String PASS = "dnoliver123";
 
@@ -50,8 +51,9 @@ public class CreateDB {
                 createGardenTable(statement);
             }
 
-            //работает
-            statement.executeUpdate("UPDATE garden.maingarden SET carrot=25 WHERE location='rabbits'");
+            //область для тестов
+            testingMethod();
+
 
 
             if (!connection.isClosed()) {
@@ -67,4 +69,9 @@ public class CreateDB {
         }
 
     }
+
+    public static void testingMethod() {
+        DBinteractions.getPlaceByID(1);
+    }
+
 }
