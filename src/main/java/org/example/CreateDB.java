@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.controller.DBinteractions;
+import org.example.gardenplace.GardenPlace;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
@@ -45,7 +46,6 @@ public class CreateDB {
         try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement statement = connection.createStatement();
         ) {
-            System.out.println(tableExists(connection, "maingarden"));
 
             if (!tableExists(connection, "maingarden")) {
                 createGardenTable(statement);
@@ -70,8 +70,18 @@ public class CreateDB {
 
     }
 
-    public static void testingMethod() {
-        DBinteractions.getPlaceByID(1);
+    public static void testingMethod() throws SQLException {
+        GardenPlace newPlace = new GardenPlace();
+        newPlace.setLocation("birds");
+        newPlace.setCarrot(11);
+        newPlace.setPotato(21);
+        newPlace.setCabbage(8);
+
+        DBinteractions.getAllPlaces();
+        DBinteractions.getPlaceByID(5);
+        DBinteractions.updatePlace(1, 55, 299, 33);
+        //DBinteractions.addNewPlace(newPlace);//это работает, закомменчено чтобы не создавать мильен birds
+        //DBinteractions.deletePlace(7);
     }
 
 }

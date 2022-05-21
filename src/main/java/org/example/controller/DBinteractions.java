@@ -22,9 +22,33 @@ public class DBinteractions {
         Statement statement = connection.createStatement();
 
 
-        public void getAllPlaces() throws SQLException {
-                ResultSet selectAll = statement.executeQuery("SELECT * FROM garden.maingarden");
-                //тут каждое поле нужно выводить через while чтоли? пока неясно. И вообще нужно ли выводить все (по ТЗ там get по id кажется)
+        public static void getAllPlaces() throws SQLException {
+                String sql = "SELECT * FROM garden.maingarden";
+
+                try (final PreparedStatement statement = connection.prepareStatement(sql)) {
+                        ResultSet selectAll = statement.executeQuery(sql);
+
+                        while (selectAll.next()) {
+                                String location = selectAll.getString("location");
+                                int carrot = selectAll.getInt("carrot");
+                                int potato = selectAll.getInt("potato");
+                                int cabbage = selectAll.getInt("cabbage");
+
+                                GardenPlace chosenPlace = new GardenPlace();
+                                chosenPlace.setLocation(location);
+                                chosenPlace.setCarrot(carrot);
+                                chosenPlace.setPotato(potato);
+                                chosenPlace.setCabbage(cabbage);
+
+                                System.out.println(chosenPlace.getLocation());
+                                System.out.println(chosenPlace.getCarrot());
+                                System.out.println(chosenPlace.getPotato());
+                                System.out.println(chosenPlace.getCabbage());
+                        }
+
+                } catch (SQLException e) {
+                        e.printStackTrace();
+                }
 
         }
 
@@ -34,11 +58,23 @@ public class DBinteractions {
                 try (final PreparedStatement statement = connection.prepareStatement(sql)) {
                         statement.setInt(1, id);
                         ResultSet chosenLocation = statement.executeQuery();
-                        System.out.println(chosenLocation);
 
                         while (chosenLocation.next()) {
-                                String locationName = chosenLocation.getString("location");
-                                System.out.println(locationName);
+                                String location = chosenLocation.getString("location");
+                                int carrot = chosenLocation.getInt("carrot");
+                                int potato = chosenLocation.getInt("potato");
+                                int cabbage = chosenLocation.getInt("cabbage");
+
+                                GardenPlace chosenPlace = new GardenPlace();
+                                chosenPlace.setLocation(location);
+                                chosenPlace.setCarrot(carrot);
+                                chosenPlace.setPotato(potato);
+                                chosenPlace.setCabbage(cabbage);
+
+                                System.out.println(chosenPlace.getLocation());
+                                System.out.println(chosenPlace.getCarrot());
+                                System.out.println(chosenPlace.getPotato());
+                                System.out.println(chosenPlace.getCabbage());
                         }
 
                 } catch (SQLException e) {
@@ -47,7 +83,7 @@ public class DBinteractions {
         }
 
 
-        public void addNewPlace(GardenPlace place) throws SQLException {
+        public static void addNewPlace(GardenPlace place) throws SQLException {
                 String sql = "INSERT INTO garden.maingarden (location, carrot, potato, cabbage) VALUES (?, ?, ?, ?)";
 
                 try (final PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -62,13 +98,14 @@ public class DBinteractions {
                 }
         }
 
-        public void updatePlace(String location, String vegetable, int vegetableAmount) throws SQLException {
-                String sql = "UPDATE garden.maingarden SET ?=? WHERE location=?";
+        public static void updatePlace(int id, int carrots, int potatoes, int cabbage) throws SQLException {
+                String sql = "UPDATE garden.maingarden SET carrot=?, potato=?, cabbage=? WHERE id=?";
 
                 try (final PreparedStatement statement = connection.prepareStatement(sql)) {
-                        statement.setString(3, location);
-                        statement.setString(1, vegetable);
-                        statement.setInt(2, vegetableAmount);
+                        statement.setInt(4, id);
+                        statement.setInt(1, carrots);
+                        statement.setInt(2, potatoes);
+                        statement.setInt(3, cabbage);
                         statement.executeUpdate();
 
                 } catch (SQLException e) {
@@ -76,11 +113,11 @@ public class DBinteractions {
                 }
         }
 
-        public void deletePlace(String location) throws SQLException {
-                String sql = "DELETE FROM garden.maingarden WHERE location=?";
+        public static void deletePlace(int id) throws SQLException {
+                String sql = "DELETE FROM garden.maingarden WHERE id=?";
 
                 try (final PreparedStatement statement = connection.prepareStatement(sql)) {
-                        statement.setString(1, location);
+                        statement.setInt(1, id);
                         statement.executeUpdate();
 
                 } catch (SQLException e) {

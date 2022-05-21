@@ -21,7 +21,7 @@ public class GardenPlace {
         return location;
     }
 
-    public void setLocation(String name) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
