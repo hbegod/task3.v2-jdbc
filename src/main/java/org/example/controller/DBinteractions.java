@@ -27,6 +27,8 @@ public class DBinteractions {
 
                 try (final PreparedStatement statement = connection.prepareStatement(sql)) {
                         ResultSet selectAll = statement.executeQuery(sql);
+                        System.out.println("------------AllPlaces:-----------");
+
 
                         while (selectAll.next()) {
                                 String location = selectAll.getString("location");
@@ -71,6 +73,7 @@ public class DBinteractions {
                                 chosenPlace.setPotato(potato);
                                 chosenPlace.setCabbage(cabbage);
 
+                                System.out.println("-------PlaceByID:-----------");
                                 System.out.println(chosenPlace.getLocation());
                                 System.out.println(chosenPlace.getCarrot());
                                 System.out.println(chosenPlace.getPotato());
